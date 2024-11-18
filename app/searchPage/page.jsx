@@ -97,7 +97,7 @@ function SearchPage() {
           id="sources-select"
           value={sources}
           onChange={(e) => setSources(e.target.value)}
-          className="px-4 py-2 border rounded-md shadow-md"
+          className="px-4 py-2 border rounded-md shadow-md dark:text-black"
         >
           <option value="">Todas las fuentes</option>
           {sourcesList.map((source) => (
