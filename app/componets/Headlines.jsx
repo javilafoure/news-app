@@ -16,7 +16,7 @@ function Headlines() {
           country: "us",
           pageSize: 3,
         });
-        setArticles(data.articles); // Guarda los artículos en el estado
+        setArticles(data.articles);
       } catch (err) {
         setError(err);
       } finally {

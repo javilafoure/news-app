@@ -13,8 +13,8 @@ function Recent() {
     const getRecentNews = async () => {
       try {
         const data = await fetchRecentNews({
-          query: "latest", // Cambia el término según tus necesidades
-          pageSize: 4, // Número de artículos por página
+          query: "latest",
+          pageSize: 4,
         });
         setArticles(data.articles);
       } catch (err) {
