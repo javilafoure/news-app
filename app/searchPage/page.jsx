@@ -1,4 +1,5 @@
 "use client";
+
 import BtnDark from "../componets/BtnDark";
 import React, { useState } from "react";
 import Card from "../componets/Card";
@@ -6,6 +7,7 @@ import searchFetchNews from "../api/searchFetchNews";
 
 function SearchPage() {
   const [query, setQuery] = useState("");
+  const [language, setLanguage] = useState("en");
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -18,7 +20,7 @@ function SearchPage() {
     setError(null);
 
     try {
-      const data = await searchFetchNews(query, 5);
+      const data = await searchFetchNews(query, language, 5);
       setArticles(data.articles);
     } catch (err) {
       setError("Error fetching news");
@@ -33,6 +35,7 @@ function SearchPage() {
       <div className="absolute top-0 right-0 p-5">
         <BtnDark />
       </div>
+
       <form onSubmit={handleSearch} className="flex gap-2 mb-4">
         <input
           type="text"
@@ -48,6 +51,24 @@ function SearchPage() {
           Buscar
         </button>
       </form>
+
+      <div className="mb-4">
+        <label className="mr-2" htmlFor="language-select">
+          Idioma:
+        </label>
+        <select
+          id="language-select"
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          className="px-4 py-2 border rounded-md shadow-md dark:text-black"
+        >
+          <option value="en">Inglés</option>
+          <option value="es">Español</option>
+          <option value="fr">Francés</option>
+          <option value="de">Alemán</option>
+          <option value="it">Italiano</option>
+        </select>
+      </div>
 
       {loading && <p>Loading...</p>}
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const searchFetchNews = async (query, pageSize = 10, page = 1) => {
+const searchFetchNews = async (query, language = 'en', pageSize = 10, page = 1) => {
   const apiKey = "f65ddb0c5fb2432ab8bee4ed9f175c4c";  
   const baseUrl = "https://newsapi.org/v2/everything";
 
@@ -10,6 +10,7 @@ const searchFetchNews = async (query, pageSize = 10, page = 1) => {
         q: query,  
         pageSize: pageSize,  
         page: page,  
+        language: language, 
         apiKey: apiKey,  
       },
     });
