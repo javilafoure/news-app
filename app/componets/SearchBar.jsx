@@ -2,9 +2,9 @@ import React from "react";
 
 function SearchBar() {
   return (
-    <div className="bg-slate-500 shadow-md shadow-slate-700 w-[70%] md:w-[30%] h-10 rounded-full flex items-center justify-between px-4 cursor-pointer">
+    <div className="dark:bg-slate-500 shadow-md shadow-slate-700 w-[70%] md:w-[30%] h-10 rounded-full flex items-center justify-between px-4 cursor-pointer">
       <input
-        className="bg-slate-500 justify-center focus:outline-none"
+        className="dark:bg-slate-500 justify-center focus:outline-none"
         placeholder="Buscar"
         type="text"
       />
