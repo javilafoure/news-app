@@ -33,7 +33,7 @@ function Headlines() {
   return (
     <div className="flex flex-col gap-2 w-[80%] md:w-[70%]">
       <h2 className="font-bold">Titulares</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-1">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {articles.map((article, index) => (
           <Card
             key={index}

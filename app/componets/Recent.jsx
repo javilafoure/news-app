@@ -33,7 +33,7 @@ function Recent() {
   return (
     <div className="flex flex-col gap-2 w-[80%] md:w-[70%]">
       <h2 className="font-bold">Recientes</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 place-items-center py-2 md:py-4 rounded-lg">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center py-2 md:py-4 rounded-lg">
         {articles.map((article, index) => (
           <Card
             key={index}
