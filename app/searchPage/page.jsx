@@ -4,6 +4,7 @@ import BtnDark from "../componets/BtnDark";
 import React, { useState, useEffect } from "react";
 import Card from "../componets/Card";
 import searchFetchNews from "../api/searchFetchNews";
+import axios from "axios";
 
 function SearchPage() {
   const [query, setQuery] = useState("");
@@ -13,6 +14,7 @@ function SearchPage() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [debouncedQuery, setDebouncedQuery] = useState("");
 
   useEffect(() => {
     const fetchSources = async () => {
@@ -31,31 +33,54 @@ function SearchPage() {
     fetchSources();
   }, []);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    if (!query) return;
+  // Debounce para la búsqueda
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500); // Espera de 500 ms para reducir peticiones innecesarias
 
-    setLoading(true);
-    setError(null);
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [query]);
 
-    try {
-      const data = await searchFetchNews(query, language, sources, 5);
-      setArticles(data.articles);
-    } catch (err) {
-      setError("Error fetching news");
-    } finally {
-      setLoading(false);
-    }
-  };
+  // Realiza la búsqueda cuando `debouncedQuery` cambia y tiene al menos 3 caracteres
+  useEffect(() => {
+    const fetchArticles = async () => {
+      if (debouncedQuery.length < 3) {
+        setArticles([]);
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
+      try {
+        const data = await searchFetchNews(
+          debouncedQuery,
+          language,
+          sources,
+          5
+        );
+        setArticles(data.articles);
+      } catch (err) {
+        setError("Error fetching news");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchArticles();
+  }, [debouncedQuery, language, sources]);
 
   return (
     <div className="flex flex-col gap-4 w-[80%] md:w-[60%] mx-auto my-6">
-      <h1 className="font-bold text-2xl">Busqueda de noticias</h1>
+      <h1 className="font-bold text-2xl">Búsqueda de noticias</h1>
       <div className="absolute top-0 right-0 p-5">
         <BtnDark />
       </div>
 
-      <form onSubmit={handleSearch} className="flex gap-2 mb-4">
+      <form className="flex gap-2 mb-4">
         <input
           type="text"
           className="w-full px-4 dark:text-black py-2 border rounded-md shadow-md focus:outline-none"
@@ -63,12 +88,6 @@ function SearchPage() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
-        >
-          Buscar
-        </button>
       </form>
 
       <div className="mb-4">
