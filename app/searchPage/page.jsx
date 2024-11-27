@@ -83,7 +83,7 @@ function SearchPage() {
       <form className="flex gap-2 mb-4">
         <input
           type="text"
-          className="w-full px-4 dark:text-black py-2 border rounded-md shadow-md focus:outline-none"
+          className="w-96 px-4 dark:text-black py-2 border rounded-md shadow-md focus:outline-none"
           placeholder="Buscar"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
